@@ -6,16 +6,13 @@
 ----
 $ zypper in apache2 apache2-mod_php7 php7-gd php7-mysql mysql-community-server
 ----
-
 . Edit Apache's configuration file '/etc/apache2/default-server.conf'
 and replace `AllowOverride None` with `AllowOverride All`, 
 and `Options None` with `Options FollowSymLinks`.
-
 . Enable required Apache modules:
 ----
 $ a2enmod php7 access_compat rewrite
 ----
-
 . Restart PHP and MySQL services:
 ----
 $ systemctl restart apache2.service mysql.service
