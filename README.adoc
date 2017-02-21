@@ -33,25 +33,53 @@
  .. Extract Drupal 8 in the '/srv/www/htdocs/drupal8/' directory.
  .. Create Apache-writeable directory and writeable settings file:
 
- $ mkdir /srv/www/htdocs/drupal8/sites/default/files
- $ chown -R wwwrun /srv/www/htdocs/drupal7/sites/default/files
- $ cp /srv/www/htdocs/drupal8/sites/default/default.settings.php \
-  /srv/www/htdocs/drupal8/sites/default/settings.php
- $ chown wwwrun /srv/www/htdocs/drupal8/sites/default/settings.php
+  $ mkdir /srv/www/htdocs/drupal8/sites/default/files
+  $ chown -R wwwrun /srv/www/htdocs/drupal7/sites/default/files
+  $ cp /srv/www/htdocs/drupal8/sites/default/default.settings.php \
+   /srv/www/htdocs/drupal8/sites/default/settings.php
+  $ chown wwwrun /srv/www/htdocs/drupal8/sites/default/settings.php
 
  .. Install Drupal 8 by pointing your browser to http://localhost/drupal8/.
 
 . Install `drush` locally for the Drupal 8 instance. Run the following command
 in the root directory of the Drupal 8 installation:
 
-$ composer require drush/drush
+ $ composer require drush/drush
 
 . Install Drupal Console locally for the Drupal 8 instance. Run the following command
  in the root directory of the Drupal 8 installation:
 
-$ composer require drupal/console:~1.0 --prefer-dist --optimize-autoloader --sort-packages
+ $ composer require drupal/console:~1.0 --prefer-dist --optimize-autoloader --sort-packages
 
 . Enable the following module in our Drupal 8 site:
 
-$ drush pm-enable migrate migrate_drupal migrate_upgrade migrate_tools migrate_plus
+ $ drush pm-enable migrate migrate_drupal migrate_upgrade migrate_tools migrate_plus
 
+=== Add required database definitions
+
+Add the following code (supply the right credentials) to the Drupal 8 'settings.php' file:
+
+----
+// Database entry for `drush migrate-upgrade --configure-only`
+$databases['upgrade']['default'] = array (
+  'database' => 'dbname',
+  'username' => 'dbuser',
+  'password' => 'dbpass',
+  'prefix' => '',
+  'host' => 'localhost',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
+);
+// Database entry for `drush migrate-import --all`
+$databases['migrate']['default'] = array (
+  'database' => 'dbname',
+  'username' => 'dbuser',
+  'password' => 'dbpass',
+  'prefix' => '',
+  'host' => 'localhost',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
+);
+---
