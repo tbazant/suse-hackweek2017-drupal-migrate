@@ -1,1 +1,0 @@
-# suse-hackweek2017-drupal-migrate
