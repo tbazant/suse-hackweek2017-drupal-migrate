@@ -3,7 +3,9 @@
 === Install web environment - Apache, php .....
 
 `$ zypper in apache2 apache2-mod_php7 php7-mysql mysql-community-server`
+
 `$ rcapache2 start`
+
 `$ rcmysql start`
 
 
