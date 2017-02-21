@@ -4,7 +4,8 @@
 
 . Install required packages:
 
- $ zypper in apache2 apache2-mod_php7 php7-gd php7-mysql mysql-community-server
+ $ zypper in apache2 apache2-mod_php7 php7-gd php7-mysql \
+  mysql-community-server php-composer
 
 . Edit Apache's configuration file '/etc/apache2/default-server.conf' and replace `AllowOverride None` with `AllowOverride All`, and `Options None` with `Options FollowSymLinks`.
 
@@ -39,3 +40,18 @@
  $ chown wwwrun /srv/www/htdocs/drupal8/sites/default/settings.php
 
  .. Install Drupal 8 by pointing your browser to http://localhost/drupal8/.
+
+. Install `drush` locally for the Drupal 8 instance. Run the following command
+in the root directory of the Drupal 8 installation:
+
+$ composer require drush/drush
+
+. Install Drupal Console locally for the Drupal 8 instance. Run the following command
+ in the root directory of the Drupal 8 installation:
+
+$ composer require drupal/console:~1.0 --prefer-dist --optimize-autoloader --sort-packages
+
+. Enable the following module in our Drupal 8 site:
+
+$ drush pm-enable migrate migrate_drupal migrate_upgrade migrate_tools migrate_plus
+
