@@ -1,11 +1,9 @@
 == Migrate custom content from Drupal 7 to Drupal 8
 
 === Install web environment - Apache, php .....
-
+[source,bash]
 `$ zypper in apache2 apache2-mod_php7 php7-mysql mysql-community-server`
-
 `$ rcapache2 start`
-
 `$ rcmysql start`
 
 
