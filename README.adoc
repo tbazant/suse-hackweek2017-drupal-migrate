@@ -1,46 +1,41 @@
 == Migrate custom content from Drupal 7 to Drupal 8
 
-=== Prepare web environment - Apache + PHP + MysSQL
+.Prepare web environment - Apache + PHP + MysSQL
 
-. Install required packages: 
-----
+. Install required packages:
+
 $ zypper in apache2 apache2-mod_php7 php7-gd php7-mysql mysql-community-server
-----
 
-. Edit Apache's configuration file '/etc/apache2/default-server.conf'
-and replace `AllowOverride None` with `AllowOverride All`, 
-and `Options None` with `Options FollowSymLinks`.
+. Edit Apache's configuration file '/etc/apache2/default-server.conf' and replace `AllowOverride None` with `AllowOverride All`, and `Options None` with `Options FollowSymLinks`.
 
 . Enable required Apache modules:
-----
+
 $ a2enmod php7 access_compat rewrite
-----
 
 . Restart PHP and MySQL services:
-----
+
 $ systemctl restart apache2.service mysql.service
-----
 
 . Download and install Drupal 7
  .. Extract Drupal 7 in the '/srv/www/htdocs/drupal7/' directory.
  .. Create Apache-writeable directory and writeble settings file:
- ----
+
  $ mkdir /srv/www/htdocs/drupal7/sites/default/files
  $ chown -R wwwrun /srv/www/htdocs/drupal7/sites/default/files
  $ cp /srv/www/htdocs/drupal7/sites/default/default.settings.php \
   /srv/www/htdocs/drupal7/sites/default/settings.php
  $ chown wwwrun /srv/www/htdocs/drupal7/sites/default/settings.php
- ----
+
  .. Install Drupal 7 by pointing your browser to http://localhost/drupal7/.
 
 . Download and install Drupal 8
  .. Extract Drupal 8 in the '/srv/www/htdocs/drupal8/' directory.
  .. Create Apache-writeable directory and writeable settings file:
- ----
+
  $ mkdir /srv/www/htdocs/drupal8/sites/default/files
  $ chown -R wwwrun /srv/www/htdocs/drupal7/sites/default/files
  $ cp /srv/www/htdocs/drupal8/sites/default/default.settings.php \
   /srv/www/htdocs/drupal8/sites/default/settings.php
  $ chown wwwrun /srv/www/htdocs/drupal8/sites/default/settings.php
- ----
+
  .. Install Drupal 8 by pointing your browser to http://localhost/drupal8/.
