@@ -2,13 +2,25 @@
 
 === Prepare web environment - Apache + PHP + MysSQL
 
-. Install required packages: 
-[source,bash]
+.Install required packages: 
+----
 $ zypper in apache2 apache2-mod_php7 php7-mysql mysql-community-server
-$ rcapache2 start
-$ rcmysql start
+----
 
-. Start PHP and MySQL services:
-[source]
-$ systemctl start apache2.service
-$ systemctl start mysql.service
+.Edit Apache's configuration file '/etc/apache2/default-server.conf'
+and replace `AllowOverride None` with `AllowOverride All`.
+
+.Enable required Apache modules:
+----
+$ a2enmod access_compat rewrite
+----
+
+
+.Restart PHP and MySQL services:
+----
+$ systemctl restart apache2.service mysql.service
+----
+
+.Download and install Drupal 7
+Extract Drupal 7 in the '/srv/www/htdocs/drupal7/' directory and install it
+pointing your browser to http://localhost/drupal7/.
