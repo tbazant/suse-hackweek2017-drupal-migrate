@@ -13,7 +13,7 @@
 
  $ a2enmod php7 access_compat rewrite
 
-. Restart PHP and MySQL services:
+. Restart Apache and MySQL services:
 
  $ systemctl restart apache2.service mysql.service
 
@@ -55,6 +55,7 @@ in the root directory of the Drupal 8 installation:
 
  $ drush pm-enable migrate migrate_drupal migrate_upgrade migrate_tools migrate_plus
 
+[[db_definition]]
 === Add required database definitions
 
 Add the following code (supply the right credentials) to the Drupal 8 'settings.php' file:
@@ -62,9 +63,9 @@ Add the following code (supply the right credentials) to the Drupal 8 'settings.
 ----
 // Database entry for `drush migrate-upgrade --configure-only`
 $databases['upgrade']['default'] = array (
-  'database' => 'dbname',
-  'username' => 'dbuser',
-  'password' => 'dbpass',
+  'database' => 'drupal7',
+  'username' => 'drupal7',
+  'password' => 'drupal7',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
@@ -73,13 +74,27 @@ $databases['upgrade']['default'] = array (
 );
 // Database entry for `drush migrate-import --all`
 $databases['migrate']['default'] = array (
-  'database' => 'dbname',
-  'username' => 'dbuser',
-  'password' => 'dbpass',
+  'database' => 'drupal7',
+  'username' => 'drupal7',
+  'password' => 'drupal7',
   'prefix' => '',
   'host' => 'localhost',
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
----
+----
+
+=== Generate a migration
+
+From your Drupal 8 directory, run:
+
+ $ drush migrate-upgrade --configure-only
+
+TIP: If you did not add an entry in your 'settings.php' as described in
+<<db_definition>>, you can pass the Drupal 7 database credentials, and optionally, the path to
+the files directory:
+
+ $ drush migrate-upgrade --configure-only \
+  --legacy-db-url=mysql://dbuser:dbpass@localhost/dbname \
+  --legacy-root=/path/to/sites/default/files
