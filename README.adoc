@@ -91,10 +91,13 @@ From your Drupal 8 directory, run:
 
  $ drush migrate-upgrade --configure-only
 
-TIP: If you did not add an entry in your 'settings.php' as described in
+[TIP]
+====
+If you did not add an entry in your 'settings.php' as described in
 <<db_definition>>, you can pass the Drupal 7 database credentials, and optionally, the path to
 the files directory:
 
  $ drush migrate-upgrade --configure-only \
   --legacy-db-url=mysql://dbuser:dbpass@localhost/dbname \
   --legacy-root=/path/to/sites/default/files
+====
