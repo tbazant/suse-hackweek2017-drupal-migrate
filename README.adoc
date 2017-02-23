@@ -43,15 +43,13 @@ replace `AllowOverride None` with `AllowOverride All`, and `Options None` with
 
  .. Install Drupal 8 by pointing your browser to http://localhost/drupal8/.
 
-. Install `drush` locally for the Drupal 8 instance. Run the following command
-in the root directory of the Drupal 8 installation:
+. Install `drush` globally on your system:
 
- $ composer require drush/drush
+ $ composer global require drush/drush
 
-. Install Drupal Console locally for the Drupal 8 instance. Run the following command
- in the root directory of the Drupal 8 installation:
+. Install Drupal Console globally:
 
- $ composer require drupal/console:~1.0 --prefer-dist --optimize-autoloader --sort-packages
+ $ composer global require drupal/console:~1.0 --prefer-dist --optimize-autoloader --sort-packages
 
 . Enable the following module in our Drupal 8 site:
 
@@ -210,7 +208,7 @@ migrate_plus.migration.upgrade_d7_block.yml
 migrate_plus.migration.upgrade_d7_custom_block.yml
 ----
 
-==== Customize migrations with process plugins
+==== Customize migrations with process plugins (optional)
 
 You can customize migrations with process plugins.
 
@@ -252,3 +250,7 @@ In the `process:` key, change the values for `plugin:` to `default_value` and
    create_body: create_body
    create_body_label: body_label
 
+=== TODO
+* clean way to load the filtered files (must include the 'group' file!!!)
+* redeploy the migration after the source content type changes
+* transfer images, taxonomy references and paragraphs
