@@ -46,9 +46,9 @@ replace `AllowOverride None` with `AllowOverride All`, and `Options None` with
 . Install `drush` in your home directory:
 
  $ composer global require drush/drush
-
++
 Then add the following line to your '~/.profile' file and source it:
-
++
  export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
 . Install Drupal Console globally:
